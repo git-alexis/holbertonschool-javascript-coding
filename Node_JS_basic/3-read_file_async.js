@@ -13,7 +13,7 @@ function countStudents(path) {
 
         const lines = data.split('\n');
 
-        const students = lines.slice(1).filter(line => line).map(line => line.split(','));
+        const students = lines.slice(1).filter(Boolean).map(line => line.split(','));
 
         const studentsInFields = { CS: [], SWE: [] };
 
@@ -37,16 +37,10 @@ function countStudents(path) {
         console.log(`Number of students in SWE: ${sweStudents.length || 0}. List: ${sweStudents.join(', ')}`);
 
         const result = {
-          numberStudents: totalStudents,
-          csStudents: {
-            numberStudents: csStudents.length,
-            students: csStudents
-          },
-          sweStudents: {
-            numberStudents: sweStudents.length,
-            students: sweStudents
-          }
-        }
+          totalNumber: `Number of students: ${totalStudents}`,
+          CS: `Number of students in CS: ${csStudents.length}. List: ${csStudents.join(', ')}`,
+          SWE: `Number of students in SWE: ${sweStudents.length}. List: ${sweStudents.join(', ')}`,
+        };
 
         resolve(result);
       }
