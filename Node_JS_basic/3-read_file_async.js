@@ -10,29 +10,45 @@ function countStudents(path) {
         reject(new Error('Cannot load the database'));
 
       } else {
-        //console.log(data);
+
         const lines = data.split('\n');
-        //console.log(lines);
 
         const students = lines.slice(1).filter(line => line).map(line => line.split(','));
-        //console.log(students);
 
-        const numberOfStudents = students.length;
+        const studentsInFields = { CS: [], SWE: [] };
 
-        console.log(`Number of students: ${numberOfStudents}`);
-        
-        const fields = [...new Set(students.map(student => student[3]))];
-        //console.log(fields);
+        students.forEach((student) => {
 
-        fields.forEach((field) => {
-
-          const studentsInField = students.filter(student => student[3] === field);
-          //console.log(studentsInField);
-
-          console.log(`Number of students in ${field}: ${studentsInField.length}. List: ${studentsInField.map(s => s[0]).join(', ')}`);
+          if (student[3] === 'CS') {
+            studentsInFields.CS.push(student[0]);
+          } else if (student[3] === 'SWE') {
+            studentsInFields.SWE.push(student[0]);
+          }
         });
 
-        resolve();
+        const totalStudents = students.length;
+
+        console.log(`Number of students: ${totalStudents}`);
+
+        const csStudents = studentsInFields.CS;
+        const sweStudents = studentsInFields.SWE;
+
+        console.log(`Number of students in CS: ${csStudents.length || 0}. List: ${csStudents.join(', ')}`);
+        console.log(`Number of students in SWE: ${sweStudents.length || 0}. List: ${sweStudents.join(', ')}`);
+
+        const result = {
+          numberStudents: totalStudents,
+          csStudents: {
+            numberStudents: csStudents.length,
+            students: csStudents
+          },
+          sweStudents: {
+            numberStudents: sweStudents.length,
+            students: sweStudents
+          }
+        }
+
+        resolve(result);
       }
     });
   });
