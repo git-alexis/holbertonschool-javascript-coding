@@ -5,7 +5,7 @@ const app = http.createServer((request, response) => {
   response.setHeader('Content-Type', 'text/plain');
   response.write('Hello Holberton School!');
   response.end();
-})
+});
 
 app.listen(1245);
 

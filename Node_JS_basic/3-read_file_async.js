@@ -1,24 +1,17 @@
 const fs = require('fs');
 
 function countStudents(path) {
-
   return new Promise((resolve, reject) => {
-
     fs.readFile(path, 'utf8', (err, data) => {
-
       if (err) {
         reject(new Error('Cannot load the database'));
-
       } else {
-
         const lines = data.split('\n');
-
-        const students = lines.slice(1).filter(Boolean).map(line => line.split(','));
+        const students = lines.slice(1).filter(Boolean).map((line) => line.split(','));
 
         const studentsInFields = { CS: [], SWE: [] };
 
         students.forEach((student) => {
-
           if (student[3] === 'CS') {
             studentsInFields.CS.push(student[0]);
           } else if (student[3] === 'SWE') {
