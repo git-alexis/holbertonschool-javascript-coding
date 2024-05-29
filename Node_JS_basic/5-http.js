@@ -22,6 +22,7 @@ const app = http.createServer(async (request, response) => {
       })
       .catch((error) => {
         console.error(error);
+        response.write('Cannot load the database');
         response.end();
       });
   }
