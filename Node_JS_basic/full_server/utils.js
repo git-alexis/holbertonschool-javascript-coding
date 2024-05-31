@@ -4,11 +4,9 @@ function readDatabase(filePath) {
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, 'utf-8', (error, data) => {
       if (error) {
-        console.error('Error:', error);
         reject(new Error('Cannot load the database'));
         return;
       }
-
       const groupedByField = data
         .split('\n')
         .filter(Boolean)
@@ -23,4 +21,4 @@ function readDatabase(filePath) {
   });
 }
 
-export default readDatabase;
+module.exports = readDatabase;
